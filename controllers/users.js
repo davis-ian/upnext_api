@@ -45,7 +45,7 @@ const addUser = async (req, res, next) => {
   const exsitingUser = results[0];
 
   if (exsitingUser) {
-    res.json({ message: `User with email ${email} already exists` });
+    res.status(400).send("A user with this email already exists!");
   } else {
     const key = uuidv4();
     const item = await users.set(key, req.body);
