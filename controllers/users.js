@@ -39,18 +39,22 @@ const getUser = async (req, res, next) => {
 };
 
 const addUser = async (req, res, next) => {
-  // Check existing user with email
-  let email = req.body.email;
-  const { results } = await users.filter({ email });
-  const exsitingUser = results[0];
+  const key = uuidv4();
+  const item = await users.set(key, req.body);
+  res.json(item).end();
 
-  if (exsitingUser) {
-    res.status(400).send("A user with this email already exists!");
-  } else {
-    const key = uuidv4();
-    const item = await users.set(key, req.body);
-    res.json(item).end();
-  }
+  // Check existing user with email
+  // let email = req.body.email;
+  // const { results } = await users.filter({ email });
+  // const exsitingUser = results[0];
+
+  // if (exsitingUser) {
+  //   res.status(400).send("A user with this email already exists!");
+  // } else {
+  //   const key = uuidv4();
+  //   const item = await users.set(key, req.body);
+  //   res.json(item).end();
+  // }
 };
 
 const deleteUser = async (req, res, next) => {
@@ -71,6 +75,18 @@ const checkUserEmail = async (req, res, next) => {
     existing = false;
   }
   res.send({ userExists: existing });
+};
+
+const getUserByAuth0Id = async (req, res, next) => {
+  let auth0Id = req.params.id;
+
+  const { results } = await users.filter({ auth0Id });
+
+  if (results[0]) {
+    res.send(results[0]);
+  } else {
+    res.status(404).send("User not found");
+  }
 };
 
 // // Delete an item
@@ -124,6 +140,7 @@ const userController = {
   publicTest,
   privateTest,
   scopedTest,
+  getUserByAuth0Id,
 };
 
 export default userController;

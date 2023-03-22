@@ -21,6 +21,9 @@ router.delete("/:id", userController.deleteUser);
 // check email
 router.get("/existing/:email", userController.checkUserEmail);
 
+// get by auth0Id
+router.get("/auth0Id/:id", userController.getUserByAuth0Id);
+
 // public test
 router.get("/public", userController.publicTest);
 
