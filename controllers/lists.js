@@ -15,6 +15,12 @@ const getList = async (req, res, next) => {
   res.json(item);
 };
 
+const getUserLists = async (req, res, next) => {
+  let userId = req.body.userId;
+  const { results } = await listCollection.filter({ userId });
+  res.json(results).end();
+};
+
 const addList = async (req, res, next) => {
   const key = uuidv4();
   const item = await listCollection.set(key, req.body);
@@ -29,6 +35,7 @@ const deleteList = async (req, res, next) => {
 
 const listController = {
   getLists,
+  getUserLists,
   getList,
   addList,
   deleteList,
