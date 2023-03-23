@@ -27,9 +27,13 @@ const scopedTest = (req, res, next) => {
 };
 
 const getUsers = async (req, res, next) => {
-  const items = await users.list();
-  res.json(items).end();
-  //   res.json({ message: "Getting Users" });
+  const { results: userMetadata } = await users.list();
+
+  const userDetailList = await Promise.all(
+    userMetadata.map(async ({ key }) => (await users.get(key)).props)
+  );
+
+  res.send(userDetailList);
 };
 
 const getUser = async (req, res, next) => {

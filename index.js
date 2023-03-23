@@ -15,8 +15,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 import usersRoute from "./routes/users.js";
+import listsRoute from "./routes/lists.js";
 
 app.use("/users", usersRoute);
+app.use("/lists", listsRoute);
 
 // Catch all handler for all other request.
 app.use("*", (req, res) => {
