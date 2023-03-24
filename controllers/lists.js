@@ -16,9 +16,11 @@ const getList = async (req, res, next) => {
 };
 
 const getUserLists = async (req, res, next) => {
-  let userId = req.params.userId;
-  const { results } = await listCollection.filter({ userId });
-  res.json(results).end();
+  let userId = req.params.id;
+  console.log(userId);
+  //   const { results } = await listCollection.filter({ userId });
+  //   res.json(results).end();
+  res.json({ result: userId });
 };
 
 const addList = async (req, res, next) => {

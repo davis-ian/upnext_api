@@ -9,7 +9,7 @@ const router = express.Router();
 router.get("/", listController.getLists);
 
 // get lists
-router.get("/by-user/:id", listController.getUserLists);
+router.get("/by-user/:userId", listController.getUserLists);
 // get list
 router.get("/:id", listController.getList);
 // add list
