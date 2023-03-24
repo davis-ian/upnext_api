@@ -16,7 +16,7 @@ const getList = async (req, res, next) => {
 };
 
 const getUserLists = async (req, res, next) => {
-  let userId = req.body.userId;
+  let userId = req.params.userId;
   const { results } = await listCollection.filter({ userId });
   res.json(results).end();
 };
