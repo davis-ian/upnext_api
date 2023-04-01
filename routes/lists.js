@@ -14,5 +14,6 @@ router.get("/by-user/:userId", listController.getUserLists);
 router.get("/:id", listController.getList);
 // add list
 router.post("/", listController.addList);
+router.delete("/:id", listController.deleteList);
 
 export default router;
