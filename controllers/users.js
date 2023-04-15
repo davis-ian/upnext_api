@@ -61,6 +61,25 @@ const addUser = async (req, res, next) => {
   // }
 };
 
+const updateUser = async (req, res, next) => {
+  const userId = req.params.id;
+  const newData = req.body;
+
+  try {
+    const { existingUser } = await users.get(userId);
+  } catch (e) {
+    console.log(`PATH /users/${userId}`, e.message);
+    res.sendStatus(404);
+  }
+
+  await users.set(userId, newData);
+  const user = {
+    ...existingUser,
+    ...newData,
+  };
+  res.send(user);
+};
+
 const deleteUser = async (req, res, next) => {
   const key = req.params.id;
   const item = await users.delete(key);
@@ -139,6 +158,7 @@ const userController = {
   getUsers,
   getUser,
   addUser,
+  updateUser,
   deleteUser,
   checkUserEmail,
   publicTest,

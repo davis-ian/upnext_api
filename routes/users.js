@@ -15,6 +15,9 @@ router.get("/:id", userController.getUser);
 // add user
 router.post("/", userController.addUser);
 
+//update user
+router.patch("/:id", userController.updateUser);
+
 // delete user
 router.delete("/:id", userController.deleteUser);
 
